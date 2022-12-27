@@ -2,8 +2,8 @@
 
     class Conexao {
 
-        private $host = 'localhost';
-        private $dbname = 'ista_tarefas_com_pdo';
+        private $host = '127.0.0.1';
+        private $dbname = 'lista_tarefas_com_pdo';
         private $user = 'root';
         private $pass = '';
 
@@ -18,10 +18,9 @@
 
                 return $conexao;
 
-
             } catch (PDOException $e) {
 
-                echo '<p>'.$e->getMessege().'</p>';
+                echo '<p>'.$e->getMessage().'</p>';
 
             }
         }
