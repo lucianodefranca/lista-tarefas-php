@@ -1,22 +1,22 @@
 <?php 
 
+    // importa scripts
     require 'tarefa.model.php';
     require 'tarefa.service.php';
     require 'conexao.php';
 
-    echo "<pre>";
-    print_r($_POST);
-    echo "<pre>";
-
+    // instancia objeto tarefa e seta pelo metodo set a tarefa recuperada via post 
     $tarefa = new Tarefa();
     $tarefa->__set('tarefa', $_POST['tarefa']);
 
+    // instancia uma nova conexao
     $conexao = new Conexao();
 
+
+    // instancia tarefaService e chama metodo inserir
     $tarefaService = new TarefaService($conexao, $tarefa);
     $tarefaService->inserir();
 
-    echo "<pre>";
-    print_r($tarefaService);
-    echo "<pre>";
+    header('Location: nova_tarefa.php?inclusao=1')
+
 ?>
