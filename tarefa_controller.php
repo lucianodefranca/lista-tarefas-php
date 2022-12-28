@@ -5,18 +5,28 @@
     require 'tarefa.service.php';
     require 'conexao.php';
 
-    // instancia objeto tarefa e seta pelo metodo set a tarefa recuperada via post 
-    $tarefa = new Tarefa();
-    $tarefa->__set('tarefa', $_POST['tarefa']);
+    $acao = isset( $_GET['acao']) ? $_GET['acao'] : $acao;
 
-    // instancia uma nova conexao
-    $conexao = new Conexao();
+    if ( $acao == 'inserir') {
 
+        // instancia objeto tarefa e seta pelo metodo set a tarefa recuperada via post 
+        $tarefa = new Tarefa();
+        $tarefa->__set('tarefa', $_POST['tarefa']);
+    
+        // instancia uma nova conexao
+        $conexao = new Conexao();
+    
+    
+        // instancia tarefaService e chama metodo inserir
+        $tarefaService = new TarefaService($conexao, $tarefa);
+        $tarefaService->inserir();
+    
+        header('Location: nova_tarefa.php?inclusao=1');
 
-    // instancia tarefaService e chama metodo inserir
-    $tarefaService = new TarefaService($conexao, $tarefa);
-    $tarefaService->inserir();
+    } else if ($acao == 'recuperar') {
 
-    header('Location: nova_tarefa.php?inclusao=1')
+        echo 'cheguei ate aqui';
+    }
+
 
 ?>
