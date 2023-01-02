@@ -65,8 +65,13 @@
 
 			function excluir(id) {
 
-				location.href= 'todas_tarefas.php?acao=excluir&id=' + id;
+				location.href = 'todas_tarefas.php?acao=excluir&id=' + id;
 
+			}
+
+			function marcarRealizada(id) {
+
+				location.href = 'todas_tarefas.php?acao=marcarRealizada&id=' + id;
 			}
 
 		</script>
@@ -109,8 +114,14 @@
 										</div>
 										<div class="col-sm-3 mt-2 d-flex justify-content-between">
 											<i class="fas fa-trash-alt fa-lg text-danger" onclick="excluir(<?= $tarefa->id ?>)"></i>
-											<i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $tarefa->id ?>,  '<?= $tarefa->tarefa ?>')"></i>
-											<i class="fas fa-check-square fa-lg text-success"></i>
+
+											<?php if ($tarefa->status == 'pendente') { ?>
+
+												<i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $tarefa->id ?>,  '<?= $tarefa->tarefa ?>')"></i>
+												<i class="fas fa-check-square fa-lg text-success" onclick="marcarRealizada( <?= $tarefa->id ?> )"></i>
+
+											<?php } ?>
+											
 										</div>
 									</div>
 								
