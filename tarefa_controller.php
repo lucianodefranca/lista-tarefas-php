@@ -1,75 +1,84 @@
-<?php 
+<?php
 
-    // importa scripts
-    require 'tarefa.model.php';
-    require 'tarefa.service.php';
-    require 'conexao.php';
+// importa scripts
+require 'tarefa.model.php';
+require 'tarefa.service.php';
+require 'conexao.php';
 
-    $acao = isset( $_GET['acao']) ? $_GET['acao'] : $acao;
+$acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
 
-    if ( $acao == 'inserir') {
 
-        // instancia objeto tarefa e seta pelo metodo set a tarefa recuperada via post 
-        $tarefa = new Tarefa();
-        $tarefa->__set('tarefa', $_POST['tarefa']);
-    
-        // instancia uma nova conexao
-        $conexao = new Conexao();
-    
-    
-        // instancia tarefaService e chama metodo inserir
-        $tarefaService = new TarefaService($conexao, $tarefa);
-        $tarefaService->inserir();
-    
-        header('Location: nova_tarefa.php?inclusao=1');
+// verifica se acao é igual inserir
+if ($acao == 'inserir') {
 
-    } else if ($acao == 'recuperar') {
+    // instancia objeto tarefa e seta pelo metodo set a tarefa recuperada via post 
+    $tarefa = new Tarefa();
+    $tarefa->__set('tarefa', $_POST['tarefa']);
 
-        $tarefa = new Tarefa();
-        $conexao = new Conexao();
+    // instancia uma nova conexao
+    $conexao = new Conexao();
 
-        $tarefaService = new TarefaService($conexao, $tarefa);
-        $tarefas = $tarefaService->recuperar();
 
-    } else if ($acao == 'atualizar') {
+    // instancia tarefaService e chama metodo inserir
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefaService->inserir();
 
-        $tarefa = new Tarefa();
-        $tarefa->__set('id', $_POST['id']);
-        $tarefa->__set('tarefa', $_POST['tarefa']);
+    // redireciona para script nova_tarefa.php
+    header('Location: nova_tarefa.php?inclusao=1');
 
-        $conexao = new Conexao();
 
-        $tarefaService = new TarefaService($conexao, $tarefa);
-        if ($tarefaService->atualizar()) {
+    // verifica se acao é igual a recuperar
+} else if ($acao == 'recuperar') {
 
-            header('Location: todas_tarefas.php');
-        }
+    $tarefa = new Tarefa();
+    $conexao = new Conexao();
 
-    } else if ($acao == 'excluir') {
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefas = $tarefaService->recuperar();
 
-        $tarefa = new Tarefa();
-        $tarefa->__set('id', $_GET['id']);
-        
-        $conexao = new Conexao();
+    // verifica se acao é igual a atualizar
+} else if ($acao == 'atualizar') {
 
-        $tarefaService = new TarefaService($conexao, $tarefa);
-        $tarefaService->excluir();
+    $tarefa = new Tarefa();
+    $tarefa->__set('id', $_POST['id']);
+    $tarefa->__set('tarefa', $_POST['tarefa']);
 
-        header('Location: todas_tarefas.php');
+    $conexao = new Conexao();
 
-    } else if ($acao == 'marcarRealizada') {
-
-        $tarefa = new tarefa();
-        $tarefa->__set('id', $_GET['id']);
-        $tarefa->__set('id_status', 2);
-
-        $conexao = new Conexao();
-
-        $tarefaService = new TarefaService($conexao, $tarefa);
-        $tarefaService->marcarRealizada();
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    if ($tarefaService->atualizar()) {
 
         header('Location: todas_tarefas.php');
     }
+
+    // verifica se acao é igual a ezcluir
+} else if ($acao == 'excluir') {
+
+    $tarefa = new Tarefa();
+    $tarefa->__set('id', $_GET['id']);
+
+    $conexao = new Conexao();
+
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefaService->excluir();
+
+    header('Location: todas_tarefas.php');
+
+
+// verifica se acao é igual a marcarRealizada
+} else if ($acao == 'marcarRealizada') {
+
+    $tarefa = new tarefa();
+    $tarefa->__set('id', $_GET['id']);
+    $tarefa->__set('id_status', 2);
+
+    $conexao = new Conexao();
+
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefaService->marcarRealizada();
+
+    header('Location: todas_tarefas.php');
+}
 
 
 ?>
