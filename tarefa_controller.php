@@ -48,12 +48,14 @@
     } else if ($acao == 'excluir') {
 
         $tarefa = new Tarefa();
-        $tarefa->__get('id', $_GET['id']);
+        $tarefa->__set('id', $_GET['id']);
         
         $conexao = new Conexao();
 
         $tarefaService = new TarefaService($conexao, $tarefa);
         $tarefaService->excluir();
+
+        header('Location: todas_tarefas.php');
     }
 
 

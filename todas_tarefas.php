@@ -65,7 +65,7 @@
 
 			function excluir(id) {
 
-				location.href='todas_tarefas.php?acao=excluir&id' + id;
+				location.href= 'todas_tarefas.php?acao=excluir&id=' + id;
 
 			}
 

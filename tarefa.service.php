@@ -43,8 +43,12 @@
   
         }
 
-        public function remover() {
-            
+        public function excluir() {
+
+            $query = 'DELETE FROM tb_tarefas WHERE id = :id';
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':id', $this->tarefa->__get('id'));
+            $stmt->execute();  
         }
 
     }
