@@ -122,8 +122,6 @@ require 'tarefa_controller.php';
 										<i class="fas fa-trash-alt fa-lg text-danger"
 											onclick="excluir(<?= $tarefa->id ?>)"></i>
 
-										/* Teste para verificar se tarefa esta pendente para mostrar botoes para editar e
-										marcar como realizada */
 										<?php if ($tarefa->status == 'pendente') { ?>
 
 											<i class="fas fa-edit fa-lg text-info"
@@ -131,12 +129,12 @@ require 'tarefa_controller.php';
 											<i class="fas fa-check-square fa-lg text-success"
 												onclick="marcarRealizada( <?= $tarefa->id ?> )"></i>
 
-											<?php } ?>
+										<?php } ?>
 
 									</div>
 								</div>
 
-								<?php } ?>
+							<?php } ?>
 
 						</div>
 					</div>

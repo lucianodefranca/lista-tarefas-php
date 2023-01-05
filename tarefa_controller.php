@@ -65,7 +65,7 @@ if ($acao == 'inserir') {
     header('Location: todas_tarefas.php');
 
 
-// verifica se acao é igual a marcarRealizada
+    // verifica se acao é igual a marcarRealizada
 } else if ($acao == 'marcarRealizada') {
 
     $tarefa = new tarefa();
@@ -78,7 +78,18 @@ if ($acao == 'inserir') {
     $tarefaService->marcarRealizada();
 
     header('Location: todas_tarefas.php');
+
+} else if ($acao == 'recuperarTarefasPendentes') {
+
+    $tarefa = new Tarefa();
+    $tarefa->__set('id_status', 1);
+    $conexao = new Conexao();
+
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefas = $tarefaService->recuperarTarefasPendentes();
+
 }
+
 
 
 ?>
